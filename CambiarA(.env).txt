@@ -1,0 +1,9 @@
+Cambia este archivo por .env
+
+URL_USER = http://10.0.0.237:8181
+URL_PROD = http://10.0.0.237:8182
+TOKEN = token
+GOOGLE_MAPS_KEY = AIzaSyC83yVY0CuGnFnZkZSuEBKjZxhoT_xsSX8
+
+ORGANIZACION = http://10.0.0.237:8184
+Organizacion = 10.0.0.237:5008
