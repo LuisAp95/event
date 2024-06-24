@@ -62,13 +62,15 @@ function Evento(props) {
       <Text className=" text-white font-bold mt-4">{evento.title}</Text>
       <Text className="mt-3 text-sm text-gray-500">{evento.organizador} </Text>
       <View className="flex-row items-center mt-3">
-        <View className="flex-row items-center mr-5"> 
+        <View className="flex-row items-center mr-5">
           <MaterialIcons name="calendar-today" size={12} color="white" />
           <Text className="text-sm text-white ml-2">{evento.fecha} </Text>
         </View>
         <View className="flex-row items-center ">
           <MaterialIcons name="confirmation-number" size={12} color="white" />
-          <Text className="text-sm text-white ml-2">{evento.precio}</Text>
+          <Text className="text-sm text-white ml-2">
+            ${evento.precio <= 0 ? "Gratis" : evento.precio}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

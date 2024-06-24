@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView, Text } from "react-native";
 import Grid from "../components/Grid";
@@ -84,7 +84,15 @@ const eventos = [
   },
 ];
 
+const fechas = [
+  { id: 1, name: "Hoy" },
+  { id: 2, name: "Mañana" },
+  { id: 3, name: "Esta semana" },
+  { id: 4, name: "Este mes" },
+];
+
 function Descubre() {
+  const [active, setActive] = useState(1);
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -105,26 +113,22 @@ function Descubre() {
         </View>
         <View className="mt-6">
           <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase">
-                <Text className="text-white">Hoy</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
-                <Text className="text-white">Mañana</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
-                <Text className="text-white">Esta semana</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
-                <Text className="text-white">Este mes</Text>
-              </View>
-            </TouchableOpacity>
+            {fechas?.map((date) => (
+              <TouchableOpacity
+                onPress={() => setActive(date.id)}
+                key={date.id}
+              >
+                <View
+                  className={
+                    active === date.id
+                      ? "px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase"
+                      : "px-7 py-3 mx-1 rounded-[32px] border border-[#282828]"
+                  }
+                >
+                  <Text className="text-white">{date.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
         <View className="my-8">

@@ -31,6 +31,7 @@ function TabMenu(props) {
 
   function goFavoritos() {
     setActive("favoritos");
+    navigation.navigate("Favoritos");
   }
 
   function goCuenta() {

@@ -28,7 +28,7 @@ function Home(props) {
       organizador: "NYS of Interior Design",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 10,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
     {
@@ -50,7 +50,7 @@ function Home(props) {
       organizador: "Organizador",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 20,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
     {
@@ -61,7 +61,7 @@ function Home(props) {
       organizador: "Organizador",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 0,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
     {
@@ -72,7 +72,7 @@ function Home(props) {
       organizador: "Organizador",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 5,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
     {
@@ -83,7 +83,7 @@ function Home(props) {
       organizador: "Organizador",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 10,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
     {
@@ -94,7 +94,7 @@ function Home(props) {
       organizador: "Organizador",
       avatar: "https://randomuser.me/api/portraits/men/36.jpg",
       fecha: "Jul 6 · 8:00 PM",
-      precio: "Gratis",
+      precio: 40,
       ubicacion: "170 E 70th St, New York, NY 10021",
     },
   ];

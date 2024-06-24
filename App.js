@@ -17,6 +17,12 @@ import Ticket from "./screens/Ticket";
 import Tickets from "./screens/Tickets";
 import TabMenu from "./components/TabMenu";
 import Maps from "./screens/Maps";
+import Favoritos from "./screens/Favoritos";
+import Checkout from "./screens/Checkout";
+import Payment from "./screens/Payment";
+import Confirmacion from "./screens/Confirmacion";
+import Siguiendo from "./screens/Siguiendo";
+import Ayuda from "./screens/Ayuda";
 
 const Stack = createStackNavigator();
 
@@ -25,10 +31,11 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function App() {
-  const [user, setUser] = useState(false);
+  const [active, setActive] = useState("home");
+  const [user, setUser] = useState(true);
 
   useEffect(() => {
-   /*  handleGetToken(); */
+    /*  handleGetToken(); */
   }, [user]);
 
   const handleGetToken = async () => {
@@ -61,7 +68,7 @@ export default function App() {
           borderLeftColor: "red",
           borderRadius: 30,
         }}
-        contentContainerStyle={{  paddingHorizontal: 40 }}
+        contentContainerStyle={{ paddingHorizontal: 40 }}
         text1Style={{
           fontSize: 24,
         }}
@@ -86,9 +93,17 @@ export default function App() {
               <Stack.Screen name="Evento" component={Evento} />
               <Stack.Screen name="Descubre" component={Descubre} />
               <Stack.Screen name="Cuenta" component={Cuenta} />
-              <Stack.Screen name="Ticket" component={Ticket} />
               <Stack.Screen name="Tickets" component={Tickets} />
-              <Stack.Screen name="Maps" component={Maps}/>
+              <Stack.Screen name="Ticket">
+                {(props) => <Ticket active={active} setActive={setActive} />}
+              </Stack.Screen>
+              <Stack.Screen name="Favoritos" component={Favoritos} />
+              <Stack.Screen name="Checkout" component={Checkout} />
+              <Stack.Screen name="Payment" component={Payment} />
+              <Stack.Screen name="Confirmacion" component={Confirmacion} />
+              <Stack.Screen name="Siguiendo" component={Siguiendo} />
+              <Stack.Screen name="Ayuda" component={Ayuda} />
+              <Stack.Screen name="Maps" component={Maps} />
             </Stack.Navigator>
             <View className="bg-bg">
               <TabMenu user={user} setUser={setUser} />

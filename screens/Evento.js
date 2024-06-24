@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { Avatar, Modal } from "react-native-paper";
 import Checkout from "../components/Checkout";
 
@@ -12,6 +12,8 @@ function Evento(props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [openMap, setOpenMap] = useState(false);
+  const [active, setActive] = useState(null);
+  const [follow, setFollow] = useState(true);
 
   const toggleOverlay = () => {
     setShowCheckout(!showCheckout);
@@ -26,6 +28,19 @@ function Evento(props) {
       headerShown: false,
     });
   }, []);
+
+  const dates = [
+    { id: 1, day: "Sab", hora: "7:00 PM", fecha: "Jun 4" },
+    { id: 2, day: "Dom", hora: "7:00 PM", fecha: "Jun 5" },
+    { id: 3, day: "Lun", hora: "7:00 PM", fecha: "Jun 6" },
+    { id: 4, day: "Mar", hora: "7:00 PM", fecha: "Jun 7" },
+    { id: 5, day: "Mie", hora: "7:00 PM", fecha: "Jun 8" },
+    { id: 6, day: "Jue", hora: "7:00 PM", fecha: "Jun 9" },
+    { id: 7, day: "Vie", hora: "7:00 PM", fecha: "Jun 10" },
+    { id: 8, day: "Sab", hora: "7:00 PM", fecha: "Jun 11" },
+    { id: 9, day: "Dom", hora: "7:00 PM", fecha: "Jun 12" },
+  ];
+
   return (
     <ScrollView className="h-full bg-bg">
       <View className="flex-row justify-between items-center py-5 mb-3 top-6  left-6 absolute z-10">
@@ -82,14 +97,14 @@ function Evento(props) {
               navigation.navigate("Maps");
             }}
           />
-          <Text className="text-sm text-lightgray ml-2"
-          
-        
-          >{ubicacion} </Text>
+          <Text className="text-sm text-lightgray ml-2">{ubicacion} </Text>
         </View>
         <View className="flex-row items-center ">
           <MaterialIcons name="confirmation-number" color="#929497" size={14} />
-          <Text className="text-sm text-lightgray ml-2">{precio} </Text>
+          <Text className="text-sm text-lightgray ml-2">
+            {" "}
+            ${precio <= 0 ? "Gratis" : precio}
+          </Text>
         </View>
         <View className="mt-6 flex-row justify-between items-center border-b border-grayMedium pb-8 mb-8">
           <View className="flex-row ">
@@ -104,39 +119,37 @@ function Evento(props) {
               <Text className="text-lightgray">Organizador</Text>
             </View>
           </View>
-          <TouchableOpacity>
-            <View className=" justify-center items-center bg-white rounded-lg w-10 h-10">
-              <MaterialIcons name="add" color="#665EE0" size={14} />
-            </View>
+          <TouchableOpacity onPress={() => setFollow(!follow)}>
+            {follow === true ? (
+              <View className="bg-PrimaryBase p-3 rounded-md">
+                <FontAwesome6 name="plus" size={16} color="white" />
+              </View>
+            ) : (
+              <View className="bg-white p-3 rounded-md">
+                <FontAwesome6 name="check" size={16} color="#665EE0" />
+              </View>
+            )}
           </TouchableOpacity>
         </View>
 
         <Text className="text-sm text-lightgray mb-4">Fecha y hora</Text>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-          <View className="bg-PrimaryBase py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-white">Sab - 7:00 PM</Text>
-            <Text className="text-xs text-white">Jun 4</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Dom - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 5</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Lun - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 6</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Mar - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 7</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Mie - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 8</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Jue - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 9</Text>
-          </View>
+          {dates?.map((date) => (
+            <TouchableOpacity key={date.id} onPress={() => setActive(date.id)}>
+              <View
+                className={
+                  active === date.id
+                    ? "bg-PrimaryBase py-2 px-3 justify-center items-center rounded mr-2"
+                    : "border border-lightgray py-2 px-3 justify-center items-center rounded mr-2"
+                }
+              >
+                <Text className="text-xs text-white">
+                  {date.day} - {date.hora}{" "}
+                </Text>
+                <Text className="text-xs text-white">{date.fecha} </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
         <Text className="text-sm text-lightgray mt-9 mb-3">Acerca de</Text>
         <Text className="text-sm text-white text-justify">
@@ -144,33 +157,29 @@ function Evento(props) {
           to get ahead. Content marketing attracts new business by engaging your
           ideal customer with consistently.
         </Text>
-        <TouchableOpacity onPress={toggleOverlay} /* onPress={() => {
-              navigation.navigate("Maps");
-            }} */ >
-          <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mt-9">
-            <Text className="text-white">{precio} </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Checkout", {
+              title,
+              fecha,
+              image,
+              precio,
+              ubicacion,
+            })
+          }
+        >
+          <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mt-9 space-x-1">
+            <Text className="text-white">
+              ${precio <= 0 ? "Gratis" : precio}
+            </Text>
             <Text className="text-white">· Añadir</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
-      <Modal className="absolute z-20 -top-10" visible={showCheckout}>
-          <Checkout
-          toggleOverlay={toggleOverlay}
-          image={image}
-          title={title}
-          precio={precio}
-          fecha={fecha}
-          organizador={organizador}
-          ubicacion={ubicacion}
-          showCheckout={showCheckout}
-          setShowCheckout={setShowCheckout}
-          navigation={navigation}
-        />
 
-      </Modal>
-       <Modal className="absolute z-20 -top-10" visible={openMap}>
+      <Modal className="absolute z-20 -top-10" visible={openMap}>
         <Map />
-      </Modal> 
+      </Modal>
     </ScrollView>
   );
 }

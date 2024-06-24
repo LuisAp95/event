@@ -81,7 +81,10 @@ function Evento(props) {
           </View>
           <View className="flex-row items-center ">
             <MaterialIcons name="confirmation-number" size={12} color="white" />
-            <Text className="text-sm text-white ml-2">{evento.precio}</Text>
+            <Text className="text-sm text-white ml-2">
+              {" "}
+              ${evento.precio <= 0 ? "Gratis" : evento.precio}
+            </Text>
           </View>
         </View>
       </View>

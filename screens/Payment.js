@@ -1,50 +1,37 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Modal } from "react-native-paper";
-import Confirmacion from "./Confirmacion";
 
 export default function Payment(props) {
-  const {
-    togglePayment,
-    title,
-    fecha,
-    image,
-    precio,
-    organizador,
-    ubicacion,
-    setShowPayment,
-    showPayment,
-    showCheckout,
-    setShowCheckout,
-    navigation,
-  } = props;
+  const { navigation, route } = props;
+  const { params } = route;
+  const { id, title, avatar, fecha, image, precio, organizador, ubicacion } =
+    params;
   const [payment, setPayment] = useState("credit-card");
-  const [showConfirmacion, setShowConfirmacion] = useState(false);
 
-  const toggleConfirmacion = () => {
-    setShowConfirmacion(!showConfirmacion);
-  };
-
-  const toggleOverlays = () => {
-    setShowConfirmacion(!showConfirmacion);
-    setShowPayment(!showPayment);
-    setShowCheckout(!showCheckout);
-    console.log(showConfirmacion);
-    console.log(showPayment);
-    console.log(showCheckout);
-  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   return (
-    <View className="w-screen min-h-full p-6 bg-bg ">
-      {/* <View className="flex-row justify-between py-3">
+    <ScrollView className="w-screen min-h-full p-6 pb-10 bg-bg ">
+      <View className="flex-row justify-between py-3">
         <MaterialIcons
           name="arrow-back-ios"
           color="#fff"
           size={16}
-          onPress={togglePayment}
+          onPress={() => navigation.goBack()}
         />
-      </View> */}
+      </View>
 
       <View className="mt-5 mb-10">
         <Text className="text-white font-bold text-3xl">Checkout</Text>
@@ -159,40 +146,35 @@ export default function Payment(props) {
       <View className="flex-row justify-between mb-10">
         <Text className="text-lightgray ">Precio de entrada</Text>
 
-        <Text className="text-white font-bold">{precio} </Text>
+        <Text className="text-white font-bold">
+          {" "}
+          ${precio <= 0 ? "Gratis" : precio}{" "}
+        </Text>
       </View>
 
-      <TouchableOpacity>
-        <View
-          onPress={toggleConfirmacion}
-          className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4"
-        >
-          <Text onPress={toggleConfirmacion} className="text-white">
-            Completar pago
-          </Text>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("Confirmacion", {
+            title,
+            fecha,
+            image,
+            precio,
+            ubicacion,
+          })
+        }
+      >
+        <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4">
+          <Text className="text-white">Completar pago</Text>
         </View>
       </TouchableOpacity>
 
-      <View className="items-center">
+      <View className="items-center mb-12">
         <TouchableOpacity>
-          <Text onPress={togglePayment} className="text-lightgray">
+          <Text onPress={() => navigation.goBack()} className="text-lightgray">
             Cancelar
           </Text>
         </TouchableOpacity>
       </View>
-
-      <Modal className="absolute z-20 -top-10" visible={showConfirmacion}>
-        <Confirmacion
-          toggleOverlays={toggleOverlays}
-          toggleConfirmacion={toggleConfirmacion}
-          image={image}
-          title={title}
-          precio={precio}
-          fecha={fecha}
-          ubicacion={ubicacion}
-          navigation={navigation}
-        />
-      </Modal>
-    </View>
+    </ScrollView>
   );
 }

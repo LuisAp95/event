@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Confirmacion(props) {
-  const {
-    toggleOverlays,
-    toggleConfirmacion,
-    title,
-    fecha,
-    image,
-    precio,
-    ubicacion,
-    navigation,
-  } = props;
+  const { navigation, route } = props;
+  const { params } = route;
+  const { id, title, avatar, fecha, image, precio, organizador, ubicacion } =
+    params;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   return (
     <View className="w-screen h-full bg-bg">
@@ -47,33 +47,33 @@ export default function Confirmacion(props) {
                 color="#929497"
                 size={14}
               />
-              <Text className="text-sm text-lightgray ml-2">{precio} </Text>
+              <Text className="text-sm text-lightgray ml-2">
+                {" "}
+                ${precio <= 0 ? "Gratis" : precio}
+              </Text>
             </View>
           </View>
-          <TouchableOpacity>
-            <View
-              //onPress={togglePayment}
-              className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4"
-            >
-              <Text
-                onPress={() =>
-                  navigation.navigate("Ticket", {
-                    title,
-                    fecha,
-                    image,
-                    precio,
-                    ubicacion,
-                  })
-                }
-                className="text-white"
-              >
-                Ver Ticket
-              </Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Ticket", {
+                title,
+                fecha,
+                image,
+                precio,
+                ubicacion,
+              })
+            }
+          >
+            <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4">
+              <Text className="text-white">Ver Ticket</Text>
             </View>
           </TouchableOpacity>
           <View className="items-center">
             <TouchableOpacity>
-              <Text onPress={toggleOverlays} className="text-lightgray">
+              <Text
+                onPress={() => navigation.navigate("Home")}
+                className="text-lightgray"
+              >
                 Cerrar
               </Text>
             </TouchableOpacity>

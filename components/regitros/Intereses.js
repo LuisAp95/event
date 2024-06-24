@@ -6,16 +6,15 @@ import {
   View,
   Pressable,
   TouchableHighlight,
+  ScrollView,
 } from "react-native";
 import moment from "moment";
 
 export default function (props) {
   const { formData, datos, fecha, sex, setNext1, next1 } = props;
   const [interes, setInteres] = useState([]);
-  console.log(interes, "vers");
 
   const registro = async () => {
-    console.log(fecha, "fecha");
     const Datos = {
       firstNames: datos.firstNames,
       lastNames: datos.lastNames,
@@ -26,54 +25,52 @@ export default function (props) {
       phone: datos.phone,
       interests: interes,
     };
-    console.log(Datos);
   };
 
   const InteR = [
-    { name: "Entretenimiento", id: "1" },
-    { name: "Disco", id: "2" },
-    { name: "Nigth Club", id: "3" },
-    { name: "Restaurant", id: "4" },
-    { name: "Pezca", id: "5" },
+    { name: "Teatro", id: "1" },
+    { name: "Deportes", id: "2" },
+    { name: "Night Clubs", id: "3" },
+    { name: "Comida", id: "4" },
+    { name: "Aire libre", id: "5" },
+    { name: "Museos", id: "6" },
   ];
 
-
-
-
-
   function handlebuscar(event) {
-    const categorias = []
-    let nuevaLongitud = categorias.push(event)
-   setInteres(categorias)
+    const categorias = [];
+    let nuevaLongitud = categorias.push(event);
+    setInteres(categorias);
 
-
-   /*  for (event in InteR) setInteres(InteR[event]);*/
-  } 
- 
+    /*  for (event in InteR) setInteres(InteR[event]);*/
+  }
 
   return (
-    <View className="gap-y-4 relative h-screen justify-center">
+    <View className="justify-center min-h-screen space-y-4 h-full">
       <Text className="font-bold text-4xl text-white text-center">
         Seleciona tus intereses
       </Text>
       <Text className="text-base  text-lightgray">
-        Debes elegir al menos 3 intereses
+        Debes elegir al menos 3.
       </Text>
-      <View className="grid grid-cols-3 gap-4">
-        {InteR.map((int) => (
-          <TouchableOpacity
-            activeOpacity={0.6}
-            underlayColor="#DDDDDD"
-            onPress={() => handlebuscar(int.name)}
-            key= {int.id}
-          >
-            <Text className="px-7 py-3  items-center rounded-[32px] bg-PrimaryBase text-white">
-              {int.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="gap-y-4 relative max-h-96"
+      >
+        <View className="grid grid-cols-4 gap-4">
+          {InteR.map((int) => (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={() => handlebuscar(int.name)}
+              key={int.id}
+            >
+              <View className="w-24 h-24 flex text-center justify-center items-center rounded-full bg-PrimaryBase ">
+                <Text className="text-white text-xs">{int.name}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
       <View className="flex flex-row justify-center gap-x-8 ">
         <TouchableOpacity onPress={registro}>
           <Text className="px-7 py-3  items-center rounded-[32px] bg-PrimaryBase text-white">
@@ -81,8 +78,8 @@ export default function (props) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setNext1(!next1)}>
-          <Text className=" px-7 py-3  items-center rounded-[32px] bg-PrimaryBase text-white">
-            volver
+          <Text className=" px-7 py-3  items-center rounded-[32px] bg-white text-PrimaryBase">
+            Volver
           </Text>
         </TouchableOpacity>
       </View>

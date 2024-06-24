@@ -144,14 +144,14 @@ export default function RegisterForm(props) {
             </View>
           </View>
           <View className="flex-row w-full space-x-4 justify-center ">
-            <TouchableOpacity onPress={register}>
-              <Text className="w-full px-7 py-3 mx-1 justify-center items-center rounded-[32px] bg-PrimaryBase text-white">
-                Registrar
+            <TouchableOpacity onPress={changeForm}>
+              <Text className="text-PrimaryBase w-full px-6 py-3  justify-center items-center rounded-[32px] bg-white">
+                Iniciar Sesión
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={changeForm}>
-              <Text className="text-PrimaryBase w-full px-7 py-3 mx-1 justify-center items-center rounded-[32px] bg-white">
-                Iniciar Sesión
+            <TouchableOpacity onPress={register}>
+              <Text className="w-full px-6 py-3 justify-center items-center rounded-[32px] bg-PrimaryBase text-white">
+                Registrar
               </Text>
             </TouchableOpacity>
           </View>

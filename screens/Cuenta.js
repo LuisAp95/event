@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Modal } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,9 +16,8 @@ function Cuenta(props) {
   };
 
   const handleGetToken = async () => {
-    await AsyncStorage.removeItem('AccessToken');
-    setUser(false)
-   
+    await AsyncStorage.removeItem("AccessToken");
+    setUser(false);
   };
 
   useLayoutEffect(() => {
@@ -43,13 +42,13 @@ function Cuenta(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Siguiendo")}>
           <View className="flex-row justify-between items-center py-4">
             <Text className="text-white text-lg">Siguiendo</Text>
             <Ionicons name="person-add" color="#fff" size={18} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Ayuda")}>
           <View className="flex-row justify-between items-center py-4">
             <Text className="text-white text-lg">Ayuda</Text>
             <Ionicons name="help-outline" color="#fff" size={18} />
@@ -63,7 +62,7 @@ function Cuenta(props) {
         </TouchableOpacity>
       </View>
       <View className="items-center">
-        <TouchableOpacity onPress={() => handleGetToken() }>
+        <TouchableOpacity onPress={() => handleGetToken()}>
           <Text className="text-RedBase mb-4">Cerrar sesión</Text>
         </TouchableOpacity>
         <Text className="text-lightgray mb-4">
